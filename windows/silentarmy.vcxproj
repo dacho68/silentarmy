@@ -175,14 +175,12 @@ copy  $(SolutionDir)\..\kernel-eXtremal-NVIDIA-20161120.zip $(SolutionDir)\dist\
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\blake.h" />
-    <ClInclude Include="..\param-nvidia.h" />
     <ClInclude Include="..\param.h" />
     <ClInclude Include="getopt.h" />
     <ClInclude Include="gettimeofday.h" />
     <ClInclude Include="memrchr.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\input-nvidia.cl" />
     <None Include="..\input.cl" />
     <None Include="..\silentarmy.py" />
   </ItemGroup>

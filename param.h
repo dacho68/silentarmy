@@ -1,3 +1,4 @@
+#define THRD                64
 #define PARAM_N				200
 #define PARAM_K				9
 #define PREFIX                          (PARAM_N / (PARAM_K + 1))
