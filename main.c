@@ -57,6 +57,10 @@ typedef uint32_t	uint;
 #include "param.h"
 #endif
 
+#ifndef O_BINARY
+#define O_BINARY 0
+#endif
+
 #define MIN(A, B)	(((A) < (B)) ? (A) : (B))
 #define MAX(A, B)	(((A) > (B)) ? (A) : (B))
 
@@ -1389,10 +1393,22 @@ void mining_mode(
 	}
 }
 #else
-void mining_mode(cl_device_id *dev_id, cl_context ctx, cl_command_queue queue,
-	cl_kernel k_init_ht, cl_kernel *k_rounds, cl_kernel k_sols,
-	cl_mem *buf_ht, cl_mem buf_sols, cl_mem buf_dbg, size_t dbg_size,
-	uint8_t *header, cl_mem *rowCounters)
+void mining_mode(
+	cl_device_id *dev_id,
+	cl_program program,
+	cl_context ctx,
+	cl_command_queue queue,
+	cl_kernel k_init_ht,
+	cl_kernel *k_rounds,
+	cl_kernel k_potential_sols,
+	cl_kernel k_sols,
+	cl_mem *buf_ht,
+	cl_mem buf_potential_sols,
+	cl_mem buf_sols,
+	cl_mem buf_dbg,
+	size_t dbg_size,
+	uint8_t *header,
+	cl_mem *rowCounters)
 {
 	char		line[4096];
 	uint8_t		target[SHA256_DIGEST_SIZE];
@@ -1404,7 +1420,6 @@ void mining_mode(cl_device_id *dev_id, cl_context ctx, cl_command_queue queue,
 	uint64_t		total_shares = 0;
 	uint64_t		t0 = 0, t1;
 	uint64_t		status_period = 500e3; // time (usec) between statuses
-	cl_int          status;
 
 	puts("SILENTARMY mining mode ready");
 	fflush(stdout);
@@ -1485,7 +1500,7 @@ void run_opencl(uint8_t *header, size_t header_len, cl_device_id *dev_id, cl_con
 	}
 #endif
 	if (mining)
-		mining_mode(*dev_id, program, ctx, queue, k_init_ht, k_rounds, k_potential_sols, k_sols, buf_ht,
+		mining_mode(dev_id, program, ctx, queue, k_init_ht, k_rounds, k_potential_sols, k_sols, buf_ht,
 			buf_potential_sols, buf_sols, buf_dbg, dbg_size, header, rowCounters);
 	fprintf(stderr, "Running...\n");
 	total = 0;

@@ -20,7 +20,7 @@
 
 
 
-#ifndef __OPENCL_VERSION__
+#if !defined(__OPENCL_VERSION__) && defined(cl_amd_fp64)
 #define uint uint32_t
 #define uchar uint8_t
 #endif

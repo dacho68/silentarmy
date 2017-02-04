@@ -150,7 +150,7 @@ class Silentarmy:
         # Solver-related attributes
         self.solver_procs = {}
         #self.solver_binary = os.path.join(sys.path[0], 'sa-solver')
-        self.solver_binary = 'sa-solver'
+        self.solver_binary = './sa-solver'
         # Stratum-related attributes
         self.st_transport = None
         self.st_conn_attempt = 0
